@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+<body style="background-color: #212121; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+
+    <div class="cardContainer" style="background-color: #f2c2c2; height: 400px; width: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div class="cardImg" id="cardImg" style="background-color: aliceblue; height: 80%; "> </div>
+        <div class="cardText" id="cardText"> </div>
+    </div>
+
+    <div class="button"  id="click" style="margin-top: 10px; align-items: center;">
+        <button>CLICK IT!!!</button>
+        
+    </div>
+
+    <div class="text">
+        <p><h2>Click this button to see profile picture and followers count.</h2></p>
+    </div>
+    
+</body>
+
+<Script>
+
+    
+
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET',requestUrl)
+  xhr.onreadystatechange=function(){
+    //console.log(xhr.readyState);
+    if(xhr.readyState === 4){
+
+        const data = JSON.parse(this.responseText);
+        console.log(data.followers);
+
+        document.querySelector('#click').addEventListener('click',function(){
+   const img=  document.querySelector('#cardImg')
+
+   img.innerHTML=`<img src="${data.avatar_url} alt="profile picture" style=" height:100%; width:100%;"></img>"`
+
+
+   const followers= document.querySelector('#cardText');
+
+   followers.innerHTML=`<h3 style="color:red">
+    GitHub Followers: ${data.followers}</h3>`
+ })
+
+    }
+  }
+  xhr.send()
+
+
+
+</Script>
+</html>
